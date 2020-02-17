@@ -3,10 +3,35 @@
      * 
     */
     
+   /**
+    * fill an array 2 dimension : 9*9 with all possible value
+    */ 
+
+   let solution = new Array (9);
+   for ( i=0 ; i<solution.length ; i++ ){
+
+       solution[i] = new Array(9);
+       for ( j=0 ; j<solution[i].length ; j++ ) {
+        solution[i][j] = {
+            "1" : true,
+            "2" : true,
+            "3" : true,
+            "4" : true,
+            "5" : true,
+            "6" : true,
+            "7" : true,
+            "8" : true,
+            "9" : true};
+       } 
+   }
+   console.log (solution)
     /*  
         - Take all element tr in the table
         - Add listener on each element
     */
+
+    
+
 
    let currentElement={"row" : 0, "col" : 0};
    console.log(currentElement);
