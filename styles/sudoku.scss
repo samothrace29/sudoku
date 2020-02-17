@@ -3,7 +3,7 @@
 */
 
 * {
-    color : black;
+    color :green;
     background-color: white;
     margin: 0;
     padding: 0;
@@ -32,7 +32,7 @@ h1{
     tr:nth-child(3),tr:nth-child(6),tr:nth-child(9) {
         border-bottom: 5px solid black;
     }
-    td:nth-child(3),td:nth-child(6),,td:nth-child(9) {
+    td:nth-child(3),td:nth-child(6),td:nth-child(9) {
         border-right: 5px solid black;
     }
     td:nth-child(1) {
