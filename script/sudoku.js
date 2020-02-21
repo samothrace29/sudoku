@@ -126,7 +126,7 @@
        possibleValeur = getAvailableValue (possibleValeur,column);
     
        possibleValeur = getAvailableValue (possibleValeur,square);
-       
+
        console.log(" Nombre restant . ");
        console.log(possibleValeur);
        
@@ -187,7 +187,6 @@
             }
         }
     console.log(" Square : ");
-    squareArr.splice (1,1);
     console.log(squareArr.sort());
     
     return squareArr;
