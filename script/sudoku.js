@@ -120,6 +120,13 @@
        let column = getColumnValue();
        let square = getSquareValue();
        let possibleValeur = Array (1,2,3,4,5,6,7,8,9);
+    
+       possibleValeur = getAvailableValue (possibleValeur,ligne);
+       
+       possibleValeur = getAvailableValue (possibleValeur,column);
+    
+       possibleValeur = getAvailableValue (possibleValeur,square);
+       
        console.log(" Nombre restant . ");
        console.log(possibleValeur);
        
