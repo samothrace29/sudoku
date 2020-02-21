@@ -76,4 +76,8 @@ form input {
   width: 33%;
   color: white;
 }
+
+td[actif] {
+  background-color: lightblue;
+}
 /*# sourceMappingURL=sudoku.css.map */

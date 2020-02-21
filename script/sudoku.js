@@ -7,24 +7,25 @@
     * fill an array 2 dimension : 9*9 with all possible value
     */ 
 
-   let solution = new Array (9);
-   for ( i=0 ; i<solution.length ; i++ ){
+   function createTable (){
+    const tab = document.getElementById("tableSudoku");
+        for (j=0;j<9;j++) {
+            // Create line
+            const column = document.createElement("TR");
+            for (i=0;i<9;i++) {
+                // create column
+                const row = document.createElement("TD");
+                column.appendChild(row);
+            }
+            tab.appendChild (column);
+        }
+    }
 
-       solution[i] = new Array(9);
-       for ( j=0 ; j<solution[i].length ; j++ ) {
-        solution[i][j] = {
-            "1" : true,
-            "2" : true,
-            "3" : true,
-            "4" : true,
-            "5" : true,
-            "6" : true,
-            "7" : true,
-            "8" : true,
-            "9" : true};
-       } 
-   }
-   console.log (solution)
+   createTable() ;
+
+
+
+    
     /*  
         - Take all element tr in the table
         - Add listener on each element
@@ -34,34 +35,42 @@
 
 
    let currentElement={"row" : 0, "col" : 0};
+
    console.log(currentElement);
+
 
   const allSudokuElement = document.querySelectorAll ("#tableSudoku td");
   console.log (allSudokuElement);
   allSudokuElement.forEach(element => {
-       element.addEventListener ('click', function (event) {
+        element.addEventListener ('click', function (event) {
 
-       currentElement["col"] = event.target.cellIndex
-       console.log (event.target.cellIndex);
-       
-       currentElement["row"] = event.target.parentNode.rowIndex;
-       console.log (event.target.parentNode.rowIndex);
-       
-       console.log (event.target.textContent);
+            // retirer le focus sur la case precedement selectionné ( CSS )
+            allSudokuElement[currentElement["row"]*9+currentElement["col"]].removeAttribute ("actif");
 
-       getPossibleValue ();
+            // Assigner le nouveau current
+            currentElement["col"] = event.target.cellIndex;
+            currentElement["row"] = event.target.parentNode.rowIndex;
+
+            // remettre le focus sur la nouvelle case cliqué ( CSS )
+            allSudokuElement[currentElement["row"]*9+currentElement["col"]].setAttribute ("actif","");
+
+            getPossibleValue ();
         });
   });
+
+  allSudokuElement[currentElement["row"]*9+currentElement["col"]].setAttribute ("actif","");
+
 
   /*
   Active all listener for each number
   when you click on a number, you assign the value to the current sudou case
   */
   const allChoiceNumberElement = document.querySelectorAll ("#tableChoiceNumber td");
-        allChoiceNumberElement.forEach(element => {
-        element.addEventListener ('click', function (event) {
-        allSudokuElement[currentElement["row"]*9+currentElement["col"]].textContent = event.target.textContent;
-        });
+
+  allChoiceNumberElement.forEach(element => {
+      element.addEventListener ('click', function (event) {
+          allSudokuElement[currentElement["row"]*9+currentElement["col"]].textContent = event.target.textContent;
+      });
   });
 
   /*
@@ -113,6 +122,6 @@
    /**
     * 
     */
-   function getPossibleValue (line, column,square) {
+   function getPossibleValue () {
 
    }
