@@ -109,11 +109,11 @@ reloadPossibleValue();
    /**
     * retourne un table de nombre contenu dans la ligne courrante
     */
-   function getLigneValue () {
+   function getLigneValue (posLigne) {
        let ligne = new Array();
        for (j=0;j<9;j++) {
-            if ( allSudokuElement[currentElement["row"]*9+j].textContent.length > 0 )
-                ligne.push (parseInt ( allSudokuElement[currentElement["row"]*9+j].textContent ) );
+            if ( allSudokuElement[posLigne*9+j].textContent.length > 0 )
+                ligne.push (parseInt ( allSudokuElement[posLigne*9+j].textContent ) );
             else 
                 ligne.push ( null );
     }
@@ -126,11 +126,11 @@ reloadPossibleValue();
    /**
     * retourne un table de nombre contenu dans la column courrante
     */
-   function getColumnValue () {
+   function getColumnValue (posColumn) {
        let column = new Array();
        for (j=0;j<9;j++) {
-            if ( allSudokuElement[j*9+currentElement["col"]].textContent.length > 0 )
-                column.push ( parseInt ( allSudokuElement[j*9+currentElement["col"]].textContent ) );
+            if ( allSudokuElement[j*9+posColumn].textContent.length > 0 )
+                column.push ( parseInt ( allSudokuElement[j*9+posColumn].textContent ) );
             else 
                 column.push ( null );
     }
@@ -142,12 +142,12 @@ reloadPossibleValue();
    /**
     * retourne un table de nombre contenu dans le carré courrant
     */
-   function getSquareValue () {
+   function getSquareValue (posLigne,posColumn) {
        let squareArr = new Array();
 
 
-        let debutCol = parseInt ( currentElement["col"] /3 ) * 3;
-        let debutRow = parseInt ( currentElement["row"] /3 ) * 3;
+        let debutCol = parseInt ( posColumn /3 ) * 3;
+        let debutRow = parseInt ( posLigne /3 ) * 3;
     
         for (i=debutRow;i<debutRow+3;i++) {
             for (j=debutCol;j<debutCol+3;j++) {
@@ -213,9 +213,9 @@ function clearMessages() {
  * Fonction qui va lire la ligne,colonne, et carré correspondant à la position courant ( 0,0 par default )
  */
 function reloadPossibleValue () {
-    let ligne  = getLigneValue();
-    let column = getColumnValue();
-    let square = getSquareValue();
+    let ligne  = getLigneValue(currentElement["row"]);
+    let column = getColumnValue(currentElement["col"]);
+    let square = getSquareValue(currentElement["row"],currentElement["col"]);
     let possibleValeur = Array (1,2,3,4,5,6,7,8,9);
     
     possibleValeur = getAvailableValue (possibleValeur,ligne);
@@ -240,10 +240,28 @@ function reloadPossibleValue () {
 
 function resoudreUneCaseVersionSimple() {
     allSudokuElement.forEach(element => {
-        console.log (element);
+        //console.log (element);
         if (element.textContent == "") {
-            console.log("Candidat a check");
+           // console.log("Candidat a check " + element.cellIndex + " : " + element.parentNode.rowIndex);
             
+            let ligne  = getLigneValue(element.parentNode.rowIndex);
+            let column = getColumnValue(element.cellIndex);
+            let square = getSquareValue(element.parentNode.rowIndex,element.cellIndex);
+            
+            let possibleValeur = Array (1,2,3,4,5,6,7,8,9);
+    
+            possibleValeur = getAvailableValue (possibleValeur,ligne);
+            
+            possibleValeur = getAvailableValue (possibleValeur,column);
+            
+            possibleValeur = getAvailableValue (possibleValeur,square);
+        
+            if ( possibleValeur.length == 1 ) {
+                console.log ( "Trouvé candidat à remplir" );
+                element.textContent = possibleValeur[0];
+                return true;
+            }
+            //console.log ( possibleValeur );
         }
     });
     return false;
