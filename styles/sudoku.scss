@@ -3,12 +3,11 @@
 */
 
 * {
-    color :green;
-    background-color: white;
     margin: 0;
     padding: 0;
     border: 0;
     list-style: none;
+    box-sizing: border-box;
 }
 
 /**
@@ -59,12 +58,17 @@ h1{
     }
 }
 
+#messages {
+    text-align: center;
+    margin-top: 1em;
+}
+
 form {
-    margin-top: 10px;
+    margin-top: 1em;
     text-align: center;
     input {
         
-        padding: 10px;
+        padding: 1em;
         background-color: grey;
         border-radius: 20px;
         width: 33%;
